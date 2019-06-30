@@ -1,0 +1,28 @@
+
+
+  Python version of Phil Bennett's GAS chemical equilibrium code
+    Ian Short
+
+  Main methods are in either GsTest or GsCalc - run either of these to run whole package
+    - GsTest - quick test run at one temperature (t) value
+    - GsCalc - loops over temperatures and writes partial pressures (PPs) to output file
+    --- for either: input parameters all set by hand in code
+
+  Imports custom python ports of dgefa and dgesl from subdirectory linpack
+   and of daxpy, dscal and idamax from subdrectory blas - all part of distribution 
+
+  Input files:  Expects "fort.4" in main directory
+    - of form of gas.d or gas.data from Phil
+
+  Output files:  Written in Outputs/ - this subdirectory must already exist in the run directory
+   - file name of form GsCalcpt[PT value]is[ISOLV value]
+   - extension *.out - report for human readers
+   - extension *.2.out - input for GsPlot 
+
+  Plotting:
+  GsPlot - stand alone main method to read in output file *.2.out from GsCalc and to
+make a plot in the python IDE of the form of those in Phil Bennett's M.Sc. thesis,
+for one species at a time (for now).
+   - input filename stem set by hand in code 
+   - choice of species set by hand in code 
+   
