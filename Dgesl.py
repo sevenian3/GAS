@@ -11,11 +11,14 @@ import numpy
 #from scipy.linalg.blas import ddot
 #from scipy.linalg.blas import dscal
 #from scipy.linalg.blas import idamax
-from Documents.ChromaStarPy.GAS.blas.Daxpy import daxpy
-from Documents.ChromaStarPy.GAS.blas.Ddot import ddot
-from Documents.ChromaStarPy.GAS.blas.Dscal import dscal
-from Documents.ChromaStarPy.GAS.blas.Idamax import idamax
-
+#from Documents.ChromaStarPy.GAS.blas.Daxpy import daxpy
+#from Documents.ChromaStarPy.GAS.blas.Ddot import ddot
+#from Documents.ChromaStarPy.GAS.blas.Dscal import dscal
+#from Documents.ChromaStarPy.GAS.blas.Idamax import idamax
+import Daxpy
+import Ddot
+import Dscal
+import Idamax
 
 def dgesl(a, lda, n, ipvt, b, job):
     
@@ -110,7 +113,7 @@ c
                 #[b[kk+1] for kk in range(k, n)] = daxpy(n-k, t,\
                 # [a[k+1][kk] for kk in range(k, n)], 1, [b[kk+1] for kk in range(k, n)], 1)
                 daxpyOut =\
-                daxpy(n-k-1, t, [a[kk][k] for kk in range(k+1, n)], 1, [b[kk] for kk in range(k+1, n)], 1)
+                Daxpy.daxpy(n-k-1, t, [a[kk][k] for kk in range(k+1, n)], 1, [b[kk] for kk in range(k+1, n)], 1)
                 daxpyCount = 0
                 for kk in range(k+1, n):
                     b[kk] = daxpyOut[daxpyCount]
@@ -136,7 +139,7 @@ c
             #print("a ", [a[kk][k] for kk in range(0, k+1)])
             #print("b ", [b[kk] for kk in range(0, k+1)])
             daxpyOut =\
-            daxpy(k, t, [a[kk][k] for kk in range(0, k+1)], 1, [b[kk] for kk in range(0, k+1)], 1)
+            Daxpy.daxpy(k, t, [a[kk][k] for kk in range(0, k+1)], 1, [b[kk] for kk in range(0, k+1)], 1)
             daxpyCount = 0
             for kk in range(0, k+1):
                 b[kk] = daxpyOut[daxpyCount]
@@ -156,7 +159,7 @@ c
         
         for k in range(n):
             #t = ddot(k-1, a[1][k], 1, b[1], 1)
-            t = ddot(k, [a[kk][k] for kk in range(0, k)],\
+            t = Ddot.ddot(k, [a[kk][k] for kk in range(0, k)],\
                              1, [b[kk] for kk in range(0, k)], 1)
             b[k] = (b[k] - t)/a[k][k]
             #print("DDOT 1: t ", t)
@@ -169,7 +172,7 @@ c
                 #k = n - kb
                 k = n - kb - 1
                 #b[k] = b[k] + ddot(n-k, a[k+1][k], 1, b[k+1], 1)
-                b[k] = b[k] + ddot(n-k, [a[kk][k] for kk in range(k, n)],\
+                b[k] = b[k] + Ddot.ddot(n-k, [a[kk][k] for kk in range(k, n)],\
                   1, [b[kk] for kk in range(k, n)], 1)
                 #print("DDOT 2: t ", t)
                 l = ipvt[k]

@@ -12,10 +12,14 @@ import numpy
 #from scipy.linalg.blas import dscal
 #from scipy.linalg.blas import idamax
 
-from Documents.ChromaStarPy.GAS.blas.Ddot import ddot
-from Documents.ChromaStarPy.GAS.blas.Dscal import dscal
-from Documents.ChromaStarPy.GAS.blas.Idamax import idamax
-from Documents.ChromaStarPy.GAS.blas.Daxpy import daxpy
+#from Documents.ChromaStarPy.GAS.blas.Ddot import ddot
+#from Documents.ChromaStarPy.GAS.blas.Dscal import dscal
+#from Documents.ChromaStarPy.GAS.blas.Idamax import idamax
+#from Documents.ChromaStarPy.GAS.blas.Daxpy import daxpy
+import Ddot
+import Dscal
+import Idamax
+import Daxpy
 
 def dgefa(a, lda, n):
     
@@ -102,7 +106,7 @@ c
             #l = idamax(n-k+1, a[k][k], 1) + k - 1
             #l = idamax(n-k+1, [a[kk][k] for kk in range(k, n)], 1) + k - 1
             #print("IDAMAX: a ", [a[kk][k] for kk in range(k, n)])
-            l = idamax(n-k, [a[kk][k] for kk in range(k, n)], 1) + k
+            l = Idamax.idamax(n-k, [a[kk][k] for kk in range(k, n)], 1) + k
             #print("l ", l)
             ipvt[k] = l
             
@@ -136,7 +140,7 @@ c
                 #dscal(n-k, t, [a[k+1][kk] for kk in range(k, n)], 1)
                 #print("BEFORE DSCAL: t ", t, " a ", [a[kk][k] for kk in range(k+1, n)])
                 dscalOut =\
-                dscal(n-k-1, t, [a[kk][k] for kk in range(k+1, n)], 1)
+                Dscal.dscal(n-k-1, t, [a[kk][k] for kk in range(k+1, n)], 1)
                 #dscalSize = len(dscalOut)
                 #[a[k+1][kk] for kk in range(k, n)] = [dscalOut[ll] for ll in range(dscalSize)]
                 dscalCount = 0
@@ -167,7 +171,7 @@ c
                     #print("Before DAXPY: [a[kk][j] for kk in range(k+1, n)] ",\
                     #                      [a[kk][j] for kk in range(k+1, n)]) 
                     daxpyOut =\
-                    daxpy(n-k-1, t, [a[kk][k] for kk in range(k+1, n)], 1, [a[kk][j] for kk in range(k+1, n)], 1)
+                    Daxpy.daxpy(n-k-1, t, [a[kk][k] for kk in range(k+1, n)], 1, [a[kk][j] for kk in range(k+1, n)], 1)
                     #daxpySize = len(daxpyOut)
                     daxpyCount = 0
                     for kk in range(k+1, n):

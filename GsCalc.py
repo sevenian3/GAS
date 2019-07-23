@@ -152,7 +152,7 @@ numClrs = len(palette)
 outPath = absPath + "/Outputs/"
 
 #fileStem = Input.fileStem
-fileStem = "GsCalc"
+fileStem = "GsCalcFullT"
 
 #Set input pressure and isolv here for file naming:
 pt = 1.0e5
@@ -267,9 +267,15 @@ print("t ", t, " pt ", pt, " pe0 ", pe0, " tol ", tol, " maxit ", maxit, " isolv
 
 #For now:
 #t = 6000.0
-t1 = 1500.0
-t2 = 6500.0
-dt = 100.0
+
+#Input values for compairson to Phil's M.Sc. thesis plots:
+#t1 = 1500.0
+#t2 = 6500.0
+#dt = 100.0
+
+t1 = 1000.0
+t2 = 30000.0
+dt = 1000.0
 # Set this above: pt = 100000.0
 #pe0 = 100.0
 tol = 1.0e-4
